@@ -46,7 +46,7 @@ string categorisePM(double ratio)
 {
     string cat;
     if (ratio < 0.08)
-        cat = 'unhealty';
+        cat = 'unhealthy';
     else if (0.08 <= ratio < 0.15)
         cat = 'average';
     else
