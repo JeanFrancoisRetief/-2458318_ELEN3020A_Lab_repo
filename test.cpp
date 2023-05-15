@@ -69,6 +69,46 @@ string categoriseDE(double ratio)
         cat = 'unhealthy';
     return (cat);
 }
+
+// Note: this fucntion is being tested with inputted testcases, not ifstream and ofstream
+// all file-code has been commented out in this version and replaced by return-string functionality
+string process_data(string company_id, int revenue_USD, double expenses, double assets, double liabilities, double revenue_ZAR,
+                    double ratio_PM, double ratio_RoA, double ratio_DE)
+{
+
+    // ifstream f_in;
+    // ofstream f_out;
+    // string data;
+    // string company_id;
+    // int revenue_USD;
+    // double expenses, assets, liabilities, revenue_ZAR, ratio_PM, ratio_RoA, ratio_DE;
+    string cat, cat2, cat3;
+
+    string output;
+
+    // f_in.open(input_file, ios::in);
+    // f_out.open(output_file, ofstream::out);
+
+    // while (!f_in.eof())
+    //{
+    // f_in >> company_id >> revenue_USD >> expenses >> assets >> liabilities;
+    revenue_ZAR = double(dollars2rands(revenue_USD));
+    ratio_PM = calcRatioPM(revenue_ZAR, expenses);
+    cat = categorisePM(ratio_PM);
+    ratio_RoA = calcRatioRoA(revenue_ZAR, expenses, assets);
+    cat2 = categoriseRoA(ratio_RoA);
+    ratio_DE = calcRatioDE(assets, liabilities);
+    cat3 = categoriseDE(ratio_DE);
+
+    // f_out << company_id << " " << ratio_PM << " " << cat << " " << ratio_RoA << " " << cat3 << " " << ratio_DE << " " << cat2 << endl;
+    output = company_id + " " + to_string(ratio_PM) + " " + cat + " " + to_string(ratio_RoA) + " " + cat3 + " " +
+             to_string(ratio_DE) + " " + cat2;
+    return (output);
+    //}
+
+    // f_in.close();
+    //.close();
+}
 //----------------------------------------------------------------------------//----------------------------------------------------------------------------
 
 // Testing functions
@@ -239,6 +279,42 @@ void test_categoriseDE(string ratio) // function parameters string instead of do
         cout << "Function: categoriseDE has failed -> a double was not entered" << endl; // debug log
     }
 }
+
+// Correct data types for parameters: string , int , double , double , double , double , double , double , double - respectively
+void test_process_data(string company_id, string revenue_USD, string expenses, string assets, string liabilities, string revenue_ZAR,
+                       string ratio_PM, string ratio_RoA, string ratio_DE)
+{
+    try
+    {
+        // TRY to see if parameters is correct datatype
+        string c_id = company_id;
+        int USDrev = stoi(revenue_USD);
+        double e = stod(expenses);
+        double a = stod(assets);
+        double l = stod(liabilities);
+        double ZARrev = stod(revenue_ZAR);
+        double r_PM = stod(ratio_PM);
+        double r_RoA = stod(ratio_RoA);
+        double r_DE = stod(ratio_DE);
+
+        // Create tesing variable
+        string testString = c_id + " " + to_string(r_PM) + " " + categorisePM(r_PM) + " " + to_string(r_RoA) + " " + categorisePM(r_RoA) + " " +
+                            to_string(r_DE) + " " + categorisePM(r_DE);
+        // test
+        if (process_data(c_id, USDrev, e, a, l, ZARrev, r_PM, r_RoA, r_DE) == testString)
+        {
+            cout << "Function: process_data  was succesfull for this test case." << endl; // debug log
+        }
+        else
+        {
+            cout << "Function: process_data has failed." << endl; // debug log
+        }
+    }
+    catch (...)
+    {
+        cout << "Function: process_data has failed -> incorrect data type was entered" << endl; // debug log
+    }
+}
 //}
 //----------------------------------------------------------------------------//----------------------------------------------------------------------------
 
@@ -293,4 +369,11 @@ int main(void)
     test_categoriseDE("1.5");   // correct double testcase - average
     test_categoriseDE("2.5");   // correct double testcase - unhealthy
     test_categoriseDE("Ratio"); // incorrect string testcase -catch
+
+    // testing test_process_data()
+
+    // correct string, int and double testcase
+    test_process_data("company5", "10000", "50000", "30000", "20000", "200000", "0.10", "0.10", "1.5");
+    // incorrect string testcase -catch
+    test_process_data("company_id", "revenue_USD", "expenses", "assets", "liabilities", "revenue_ZAR", "ratio_PM", "ratio_RoA", "ratio_DE");
 }

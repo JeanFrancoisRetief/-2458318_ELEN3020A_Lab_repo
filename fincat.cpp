@@ -10,6 +10,8 @@
 
 using namespace std;
 
+// JF- Note: corrected errors in the calculations (such as swapped variables)
+
 // JF - exchange dollars for rands (for yearly dollar revenue - rest already in rand)
 int dollars2rands(int x)
 {
@@ -44,7 +46,7 @@ double calcRatioDE(double assets, double liabilities)
 // JF - categorise Profit margin ratio
 string categorisePM(double ratio)
 {
-    string cat;
+    string cat; // string, not char
     if (ratio < 0.08)
         cat = 'unhealthy';
     else if (0.08 <= ratio < 0.15)
@@ -57,7 +59,7 @@ string categorisePM(double ratio)
 // JF - categorise Return on Assets ratio
 string categoriseRoA(double ratio)
 {
-    string cat;
+    string cat; // string, not char
     if (ratio < 0.08)
         cat = 'unhealthy';
     else if (0.08 <= ratio < 0.15)
@@ -75,7 +77,7 @@ string categoriseRoA(double ratio)
 // JF - categorise Debt-to-Equity ratio
 string categoriseDE(double ratio)
 {
-    string cat;
+    string cat; // string, not char
     if (ratio < 1)
         cat = 'healthy';
     else if (1 <= ratio < 2)
@@ -90,6 +92,7 @@ string categoriseDE(double ratio)
 // Note: corrected revenue_ZAR = dollars2rands(double(revenue_USD));
 // Note: made revenue_USD an integer, since the dollars2rands function takes in integers
 // Note: added more [<< " " <<]'s to the  f_out << ... line for properly spaced output, like the readme example
+// Note: corrected order of cat's in the  f_out << ... line
 
 void process_data(char *input_file, char *output_file)
 {
@@ -119,7 +122,7 @@ void process_data(char *input_file, char *output_file)
         cat3 = categoriseDE(ratio_DE);                                          // JF - categorise Debt-to-Equity ratio //;
 
         // JF - OUTPUT to f_out, the ratios and categories
-        f_out << company_id << " " << ratio_PM << " " << cat << " " << ratio_RoA << " " << cat3 << " " << ratio_DE << " " << cat2 << endl;
+        f_out << company_id << " " << ratio_PM << " " << cat << " " << ratio_RoA << " " << cat2 << " " << ratio_DE << " " << cat3 << endl;
     }
 
     // close files
