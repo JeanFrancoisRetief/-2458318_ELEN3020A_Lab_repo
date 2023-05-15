@@ -1,3 +1,6 @@
+// Jean-Francois Retief (2458318)
+// main fincat.cpp file
+
 // JA - it is good practice to insert comment about intended use, context, contributors, etc
 
 // JF - included libraries
