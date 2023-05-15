@@ -77,19 +77,19 @@ void test_dollars2rands(string xInt) // function parameters string instead of in
 {
     try
     {
-        int x = stoi(xInt); // TRY to see if parameter is correct datatype
-        if (dollars2rands(x) == (x * 20))
+        int x = stoi(xInt);               // TRY to see if parameter is correct datatype
+        if (dollars2rands(x) == (x * 20)) // check if function returns correct output
         {
-            cout << "Function: dollars2rands was succesfull." << endl;
+            cout << "Function: dollars2rands was succesfull." << endl; // debug log
         }
         else
         {
-            cout << "Function: dollars2rands has failed." << endl;
+            cout << "Function: dollars2rands has failed." << endl; // debug log
         }
     }
     catch (...)
     {
-        cout << "Function: dollars2rands has failed -> integer not entered" << endl;
+        cout << "Function: dollars2rands has failed -> integer not entered" << endl; // debug log
     }
 }
 
@@ -97,20 +97,20 @@ void test_calcRatioPM(string revenue, string expenses) // function parameters st
 {
     try
     {
-        double r = stod(revenue);  // TRY to see if parameter is correct datatype
-        double e = stod(expenses); // TRY to see if parameter is correct datatype
-        if (calcRatioPM(r, e) == ((r - e) / r))
+        double r = stod(revenue);               // TRY to see if parameter is correct datatype
+        double e = stod(expenses);              // TRY to see if parameter is correct datatype
+        if (calcRatioPM(r, e) == ((r - e) / r)) // check if function returns correct output
         {
-            cout << "Function: calcRatioPM was succesfull." << endl;
+            cout << "Function: calcRatioPM was succesfull." << endl; // debug log
         }
         else
         {
-            cout << "Function: calcRatioPM has failed." << endl;
+            cout << "Function: calcRatioPM has failed." << endl; // debug log
         }
     }
     catch (...)
     {
-        cout << "Function: calcRatioPM has failed -> doubles not entered" << endl;
+        cout << "Function: calcRatioPM has failed -> doubles not entered" << endl; // debug log
     }
 }
 
@@ -118,20 +118,21 @@ void test_calcRatioRoA(string revenue, string expenses, string assets) // functi
 {
     try
     {
-        double r = stod(revenue);  // TRY to see if parameter is correct datatype
-        double e = stod(expenses); // TRY to see if parameter is correct datatype
-        double a = stod(assets);   // TRY to see if parameter is correct datatype
-        if (calcRatioRoA(r, e, a) == ((r - e) / a))
+        double r = stod(revenue);                   // TRY to see if parameter is correct datatype
+        double e = stod(expenses);                  // TRY to see if parameter is correct datatype
+        double a = stod(assets);                    // TRY to see if parameter is correct datatype
+        if (calcRatioRoA(r, e, a) == ((r - e) / a)) // check if function returns correct output
         {
-            cout << "Function: calcRatioRoA was succesfull." << endl;
+            cout << "Function: calcRatioRoA was succesfull." << endl; // debug log
         }
         else
         {
-            cout << "Function: calcRatioRoA has failed." << endl;
+            cout << "Function: calcRatioRoA has failed." << endl; // debug log
         }
     }
     catch (...)
     {
+        cout << "Function: calcRatioRoA has failed -> doubles not entered" << endl; // debug log
     }
 }
 
@@ -139,20 +140,20 @@ void test_calcRatioDE(string assets, string liabilities) // function parameters 
 {
     try
     {
-        double a = stod(assets);      // TRY to see if parameter is correct datatype
-        double l = stod(liabilities); // TRY to see if parameter is correct datatype
-        if (calcRatioDE(a, l) == (l / a))
+        double a = stod(assets);          // TRY to see if parameter is correct datatype
+        double l = stod(liabilities);     // TRY to see if parameter is correct datatype
+        if (calcRatioDE(a, l) == (l / a)) // check if function returns correct output
         {
-            cout << "Function: calcRatioDE was succesfull." << endl;
+            cout << "Function: calcRatioDE was succesfull." << endl; // debug log
         }
         else
         {
-            cout << "Function: calcRatioDE has failed." << endl;
+            cout << "Function: calcRatioDE has failed." << endl; // debug log
         }
     }
     catch (...)
     {
-        cout << "Function: calcRatioDE has failed -> doubles not entered" << endl;
+        cout << "Function: calcRatioDE has failed -> doubles not entered" << endl; // debug log
     }
 }
 
@@ -160,27 +161,27 @@ void test_categorisePM(string ratio) // function parameters string instead of do
 {
     try
     {
-        double r = stod(ratio); // TRY to see if parameter is correct datatype
-        if ((r < 0.08) && categorisePM(r) == "unhealthy")
+        double r = stod(ratio);                             // TRY to see if parameter is correct datatype
+        if ((r < 0.08) && (categorisePM(r) == "unhealthy")) // check if function returns correct output
         {
-            cout << "Function: categorisePM  was succesfull for unhealthy test case." << endl;
+            cout << "Function: categorisePM  was succesfull for unhealthy test case." << endl; // debug log
         }
-        else if ((0.08 <= r < 0.15) && categorisePM(r) == "average")
+        else if ((0.08 <= r < 0.15) && (categorisePM(r) == "average")) // check if function returns correct output
         {
-            cout << "Function: categorisePM  was succesfull for average test case." << endl;
+            cout << "Function: categorisePM  was succesfull for average test case." << endl; // debug log
         }
-        else if ((r >= 0.15) && categorisePM(r) == "healthy")
+        else if ((r >= 0.15) && (categorisePM(r) == "healthy")) // check if function returns correct output
         {
-            cout << "Function: categorisePM  was succesfull for healthy test case." << endl;
+            cout << "Function: categorisePM  was succesfull for healthy test case." << endl; // debug log
         }
         else
         {
-            cout << "Function: categorisePM has failed." << endl;
+            cout << "Function: categorisePM has failed." << endl; // debug log
         }
     }
     catch (...)
     {
-        cout << "Function: categorisePM has failed -> a double was not entered" << endl;
+        cout << "Function: categorisePM has failed -> a double was not entered" << endl; // debug log
     }
 }
 
@@ -188,54 +189,54 @@ void test_categoriseRoA(string ratio) // function parameters string instead of d
 {
     try
     {
-        double r = stod(ratio); // TRY to see if parameter is correct datatype
-        if ((r < 0.08) && categoriseRoA(r) == "unhealthy")
+        double r = stod(ratio);                              // TRY to see if parameter is correct datatype
+        if ((r < 0.08) && (categoriseRoA(r) == "unhealthy")) // check if function returns correct output
         {
-            cout << "Function: categoriseRoA  was succesfull for unhealty test case." << endl;
+            cout << "Function: categoriseRoA  was succesfull for unhealty test case." << endl; // debug log
         }
-        else if ((0.08 <= r < 0.15) && categoriseRoA(r) == "average")
+        else if ((0.08 <= r < 0.15) && (categoriseRoA(r) == "average")) // check if function returns correct output
         {
-            cout << "Function: categoriseRoA  was succesfull for average test case." << endl;
+            cout << "Function: categoriseRoA  was succesfull for average test case." << endl; // debug log
         }
-        else if ((r >= 0.15) && categoriseRoA(r) == "healthy")
+        else if ((r >= 0.15) && (categoriseRoA(r) == "healthy")) // check if function returns correct output
         {
-            cout << "Function: categoriseRoA  was succesfull for healty test case." << endl;
+            cout << "Function: categoriseRoA  was succesfull for healty test case." << endl; // debug log
         }
         else
         {
-            cout << "Function: categoriseRoA has failed." << endl;
+            cout << "Function: categoriseRoA has failed." << endl; // debug log
         }
     }
     catch (...)
     {
-        cout << "Function: categoriseRoA has failed -> a double was not entered" << endl;
+        cout << "Function: categoriseRoA has failed -> a double was not entered" << endl; // debug log
     }
 }
 void test_categoriseDE(string ratio) // function parameters string instead of double (for input data-type validation)
 {
     try
     {
-        double r = stod(ratio); // TRY to see if parameter is correct datatype
-        if ((r < 1) && categoriseDE(r) == "healthy")
+        double r = stod(ratio);                        // TRY to see if parameter is correct datatype
+        if ((r < 1) && (categoriseDE(r) == "healthy")) // check if function returns correct output
         {
-            cout << "Function: categoriseDE  was succesfull for unhealty test case." << endl;
+            cout << "Function: categoriseDE  was succesfull for unhealty test case." << endl; // debug log
         }
-        else if ((1 <= r < 2) && categoriseDE(r) == "average")
+        else if ((1 <= r < 2) && (categoriseDE(r) == "average")) // check if function returns correct output
         {
-            cout << "Function: categoriseDE  was succesfull for average test case." << endl;
+            cout << "Function: categoriseDE  was succesfull for average test case." << endl; // debug log
         }
-        else if ((r >= 2) && categoriseDE(r) == "unhealthy")
+        else if ((r >= 2) && (categoriseDE(r) == "unhealthy")) // check if function returns correct output
         {
-            cout << "Function: categoriseDE  was succesfull for healty test case." << endl;
+            cout << "Function: categoriseDE  was succesfull for healty test case." << endl; // debug log
         }
         else
         {
-            cout << "Function: categoriseDE has failed." << endl;
+            cout << "Function: categoriseDE has failed." << endl; // debug log
         }
     }
     catch (...)
     {
-        cout << "Function: categoriseDE has failed -> a double was not entered" << endl;
+        cout << "Function: categoriseDE has failed -> a double was not entered" << endl; // debug log
     }
 }
 //}
