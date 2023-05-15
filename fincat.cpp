@@ -10,7 +10,7 @@
 
 using namespace std;
 
-// JF- exchange dollars for rands (for yearly dollar revenue - rest already in rand)
+// JF - exchange dollars for rands (for yearly dollar revenue - rest already in rand)
 int dollars2rands(int x)
 {
     return (x * 20); // JF - assuming the exchange rate is $1 = R20
@@ -34,7 +34,7 @@ double calcRatioDE(double assets, double liabilities)
     return (liabilities / assets);
 }
 
-// JF - Note on changes: "char cat" has been changed to "string cat" throughout the code
+// JF - ***********Note on changes: "char cat" has been changed to "string cat" throughout the code***********
 
 // JF -categorize the financial ratios according to these rules for the Profit margin ratio and the Return on Assets ratio:
 // Less than 0.08: unhealty
@@ -85,6 +85,12 @@ string categoriseDE(double ratio)
     return (cat);
 }
 
+// JF - Prossess the data (Profit margin ratio, Return on Assets ratio, Debt-to-Equity ratio as well as their categories)
+// Note: corrected USD vs ZAR variable swaps
+// Note: corrected revenue_ZAR = dollars2rands(double(revenue_USD));
+// Note: made revenue_USD an integer, since the dollars2rands function takes in integers
+// Note: added more [<< " " <<]'s to the  f_out << ... line for properly spaced output, like the readme example
+
 void process_data(char *input_file, char *output_file)
 {
     // JF - variables
@@ -92,7 +98,8 @@ void process_data(char *input_file, char *output_file)
     ofstream f_out;
     string data;
     string company_id;
-    double revenue_USD, expenses, assets, liabilities, revenue_ZAR, ratio_PM, ratio_RoA, ratio_DE;
+    int revenue_USD;
+    double expenses, assets, liabilities, revenue_ZAR, ratio_PM, ratio_RoA, ratio_DE;
     string cat, cat2, cat3; // JF -string, not char
 
     // open files
@@ -103,7 +110,7 @@ void process_data(char *input_file, char *output_file)
     while (!f_in.eof()) // JF - loop until entire input file is read
     {
         f_in >> company_id >> revenue_USD >> expenses >> assets >> liabilities; // JF - input from f_in
-        revenue_ZAR = dollars2rands(double(revenue_USD));                       // JF - convert $___ revenue to R____
+        revenue_ZAR = double(dollars2rands(revenue_USD));                       // JF - convert $___ revenue to R____
         ratio_PM = calcRatioPM(revenue_ZAR, expenses);                          // JF - get Profit margin ratio
         cat = categorisePM(ratio_PM);                                           // JF - categorise Profit margin ratio
         ratio_RoA = calcRatioRoA(revenue_ZAR, expenses, assets);                // JF - get Return on Assets ratio //;
@@ -112,7 +119,7 @@ void process_data(char *input_file, char *output_file)
         cat3 = categoriseDE(ratio_DE);                                          // JF - categorise Debt-to-Equity ratio //;
 
         // JF - OUTPUT to f_out, the ratios and categories
-        f_out << company_id << " " << ratio_PM << " " << cat << ratio_RoA << " " << cat3 << ratio_DE << " " << cat2 << endl;
+        f_out << company_id << " " << ratio_PM << " " << cat << " " << ratio_RoA << " " << cat3 << " " << ratio_DE << " " << cat2 << endl;
     }
 
     // close files
