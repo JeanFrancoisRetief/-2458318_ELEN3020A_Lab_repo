@@ -1,94 +1,122 @@
 // JA - it is good practice to insert comment about intended use, context, contributors, etc
 
+// JF - included libraries
 #include <iostream>
 #include <fstream>
 #include <string>
 
 using namespace std;
 
+// JF- exchange dollars for rands (for yearly dollar revenue - rest already in rand)
 int dollars2rands(int x)
 {
-    return(x*20);
+    return (x * 20); // JF - assuming the exchange rate is $1 = R20
 }
 
+// JF - Calculate Profit margin ratio = (revenue - expenses) / revenue
 double calcRatioPM(double revenue, double expenses)
 {
-    return((revenue-expenses)/revenue);
+    return ((revenue - expenses) / revenue);
 }
 
+// JF - Calculate Return on Assets ratio = (revenue - expenses) / assets
 double calcRatioRoA(double revenue, double expenses, double assets)
 {
-    return (expenses / assets);
+    return ((revenue - expenses) / assets);
 }
 
+// JF - Calculate Debt-to-Equity ratio = liabilities/assets
 double calcRatioDE(double assets, double liabilities)
 {
-    return(assets/ liabilities);
+    return (liabilities / assets);
 }
 
-char categorisePM(double ratio)
+// JF - Note on changes: "char cat" has been changed to "string cat" throughout the code
+
+// JF -categorize the financial ratios according to these rules for the Profit margin ratio and the Return on Assets ratio:
+// Less than 0.08: unhealty
+// Not less than 0.08 but less than 0.15: average
+// 0.15 or over: healthy
+
+// JF - categorise Profit margin ratio
+string categorisePM(double ratio)
 {
-    char cat;
-    if (ratio<0.08)
-        cat='unhealty';
-    else if (ratio<=0.15)
-        cat='average';
+    string cat;
+    if (ratio < 0.08)
+        cat = 'unhealty';
+    else if (0.08 <= ratio < 0.15)
+        cat = 'average';
     else
-        cat='healthy';
-    return(cat);
+        cat = 'healthy';
+    return (cat);
 }
 
-char categoriseRoA(double ratio)
+// JF - categorise Return on Assets ratio
+string categoriseRoA(double ratio)
 {
-    char cat;
+    string cat;
     if (ratio < 0.08)
         cat = 'unhealthy';
-    else if (ratio <= 0.15)
+    else if (0.08 <= ratio < 0.15)
         cat = 'average';
     else
         cat = 'healthy';
-    return(cat);
+    return (cat);
 }
 
-char categoriseDE(double ratio)
+// JF - categorize the Debt-to-Equity ratio as follows:
+// Less than 1: healty
+// Not less than 1 but less than 2: average
+// 2 or over: unhealthy
+
+// JF - categorise Debt-to-Equity ratio
+string categoriseDE(double ratio)
 {
-    char cat;
+    string cat;
     if (ratio < 1)
         cat = 'healthy';
-    else if (ratio <= 2)
+    else if (1 <= ratio < 2)
         cat = 'average';
     else
         cat = 'unhealthy';
-    return(cat);
+    return (cat);
 }
 
-void process_data(char* input_file, char* output_file)
+void process_data(char *input_file, char *output_file)
 {
+    // JF - variables
     ifstream f_in;
     ofstream f_out;
     string data;
     string company_id;
     double revenue_USD, expenses, assets, liabilities, revenue_ZAR, ratio_PM, ratio_RoA, ratio_DE;
-    char cat, cat2, cat3;
+    string cat, cat2, cat3; // JF -string, not char
 
-    f_in.open(input_file,ios::in);
-    f_out.open(output_file,ofstream::out);
-    while (!f_in.eof())
+    // open files
+    f_in.open(input_file, ios::in);
+    f_out.open(output_file, ofstream::out);
+
+    // use files
+    while (!f_in.eof()) // JF - loop until entire input file is read
     {
-    	f_in >> company_id >> revenue_USD >> expenses >> assets >> liabilities;
-        revenue_ZAR = dollars2rands(double(revenue_ZAR));
-        ratio_PM = calcRatioPM(revenue_USD, expenses);
-        cat=categorisePM(ratio_PM);
-        ratio_RoA = calcRatioRoA(revenue_ZAR, expenses, assets);;
-        cat2 = categoriseRoA(ratio_RoA);
-        ratio_DE = calcRatioDE(assets, liabilities);
-        cat3 = categoriseDE(ratio_DE);;
-	f_out << company_id << " " << ratio_PM << " " << cat << ratio_RoA << " " << cat3 << ratio_DE << " " << cat2 << endl;
+        f_in >> company_id >> revenue_USD >> expenses >> assets >> liabilities; // JF - input from f_in
+        revenue_ZAR = dollars2rands(double(revenue_USD));                       // JF - convert $___ revenue to R____
+        ratio_PM = calcRatioPM(revenue_ZAR, expenses);                          // JF - get Profit margin ratio
+        cat = categorisePM(ratio_PM);                                           // JF - categorise Profit margin ratio
+        ratio_RoA = calcRatioRoA(revenue_ZAR, expenses, assets);                // JF - get Return on Assets ratio //;
+        cat2 = categoriseRoA(ratio_RoA);                                        // JF - categorise Return on Assets ratio
+        ratio_DE = calcRatioDE(assets, liabilities);                            // JF - get Debt-to-Equity ratio
+        cat3 = categoriseDE(ratio_DE);                                          // JF - categorise Debt-to-Equity ratio //;
+
+        // JF - OUTPUT to f_out, the ratios and categories
+        f_out << company_id << " " << ratio_PM << " " << cat << ratio_RoA << " " << cat3 << ratio_DE << " " << cat2 << endl;
     }
+
+    // close files
     f_in.close();
     f_out.close();
 }
-        
+
 int main(int argc, char *argv[])
 {
     // JA - Need to check that 3 arguments were supplied upon execution
